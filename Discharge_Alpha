@@ -1,0 +1,90 @@
+import os
+from datetime import datetime
+
+# WORKING PATIENT MODULE -- FOR DISCHARGE TESTING ONLY
+class Patient:
+    def __init__(self, pid, name, age, cond, admDate):
+        self.pid = pid
+        self.name = name
+        self.age = age
+        self.cond = cond
+        self.admDate = admDate
+
+    def p_data(self):
+        # Get all the patient info.
+        return (
+            f"Patient ID: {self.pid}\n"
+            f"Name: {self.name}\n"
+            f"Age: {self.age}\n"
+            f"Condition: {self.cond}\n"
+            f"Admitted on: {self.admDate}\n"
+            f"Discharged on: {datetime.now().strftime('%Y-%m-%d')}\n"
+        )
+
+# WORKING HIS MODULE -- FOR DISCHARGE TESTING ONLY
+class HIS:
+    def __init__(self):
+        self.records = {} # Simulated records
+
+    def add_patient(self, patient):
+        self.records[patient.pid] = patient
+
+    def remove_patient(self, pid):
+        if pid in self.records:
+            del self.records[pid]
+
+    def get_patient(self, pid):
+        return self.records.get(pid)
+
+
+class Discharge:
+    def __init__(self, his):
+        self.his = his
+
+    def discharge_patient(self, pid):
+        patient = self.his.get_patient(pid)
+
+        if not patient:
+            print("No patient was found.")
+            return
+
+        # Create file
+        today = datetime.now().strftime("%Y%m%d")
+        name2 = patient.name.replace(" ", "").lower()
+        filename = f"{name2}_discharged_{today}.txt"
+
+        # Write patient info
+        with open(filename, "w") as file:
+            file.write(patient.p_data())
+
+        print(f"Discharge file created: {filename}")
+
+        # Delete patient record
+        self.his.remove_patient(pid)
+        print("Patient record deleted from HIS.")
+
+        self.load_home_screen()
+
+    def load_home_screen(self):
+        print("\n--- Returning to Home Screen ---\n")
+
+
+# EX:
+if __name__ == "__main__":
+    his = HIS()
+
+    patient1 = Patient(
+        pid=101,
+        name="John Doe",
+        age=20,
+        cond="Diabetes",
+        admDate="2026-04-18"
+    )
+
+    his.add_patient(patient1)
+
+    # Discharge module
+    discharge = Discharge(his)
+
+    # Discharge patient
+    discharge.discharge_patient(101)
