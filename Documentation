@@ -1,0 +1,4 @@
+DOCUMENTATION
+
+Discharge Module
+- Create a log file containing patient info and remove a patient from the system by patient ID.
