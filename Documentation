@@ -5,3 +5,9 @@ Discharge Module
 Doctor Module:
 allows doctor to log in and mange patients. use doctor and patient calasse to store informations, viiew patients datiels , order lab testes, and discahrge patients.
 In this module i used lists to store date and demonstaresd basic concepts like classes and functions. 
+Med Module:
+- doctors can perscribe, update, and delete medications
+- doctors, nurses, and patients can view the meds
+Vitals Module:
+-doctors and nurses can write down different vital names and values
+-doctors, nurses, and patients can all view the different vitals
