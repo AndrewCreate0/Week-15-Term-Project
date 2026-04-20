@@ -1,0 +1,158 @@
+"""
+Nurse Module Update 04/19/2026 23:15 : Successfully implemented login methods;
+
+                                          need to work on view_patient and create_patient methods """
+
+#Person Class - Skeleton of other classes
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+def exit_HIS():
+    print("Thank you for visting the HIS!")
+
+
+# Patient class
+class Patient(Person):
+    def __init__(self, first_name, last_name, patient_id, age, admit_date, med_costs):
+        super().__init__(first_name, last_name)
+        self.patient_id = patient_id
+        self.age = age
+        self.admit_date = admit_date
+        self.med_costs = med_costs
+        
+    def get_info_patient(self):
+        print(f'{self.first_name[0]}*** {self.last_name[0]}***')
+
+    def retrieve_patient_info(self):
+        print(f"Patient name: {self.first_name} {self.last_name}\nAge:{self.age} years old\nDate of Admission: {self.admit_date}")
+
+
+
+#Patient cont'd
+patients = [
+    Patient("John", "Smith", 1, 65, "March 3", 5),
+    Patient("Patrica", "Jones", 2, 73, "February 9", 1000000000),
+    Patient("Someone", "Something", 3, 10, "April 7", 30),
+    Patient("Zack", "Xylophone", 4, 45, "December 31", 990)]
+
+
+#Nurse Class
+class Nurse:
+    def __init__(self, first_name, last_name, password, floor_number):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.__nurse_password = password # password (preset)
+        self.floor_number = floor_number
+        self.__nurse_id = first_name + last_name + str(floor_number) #login username (auto gen'd using full name + floor num
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def create_patient(self): #4/19/2026 ; Humberto needs to work on this working
+        print("Ready to create Patient. Please enter following details:")
+        new_first_name = input("Enter patient first name: ")
+        new_last_name = input("Enter patient last name: ")
+        new_id = int(len(patients) + 1)
+        new_age = int(input("Enter patient age: "))
+        new_admit_date = str(input("Enter patient address: "))
+        new_med_costs = int(input("Enter patient's admittance date: "))
+        
+        patients.append(Patient(new_first_name, new_last_name, new_id, new_age, new_admit_date, new_med_costs)) #Will build function soon - still need patient moduler # 04/19/2026
+
+    def view_patient(self): #4/19/2026 ; Humberto needs to work on this working
+        view_id = int(input("Please enter ID of patient for details: ")) #Will build function soon - still need patient moduler # 04/19/2026
+        found = False
+
+        for patient in patients:
+            if patient.patient_id == search_id:
+                patient.retrieve_patient_info()
+                found = True
+                break
+                
+        if not found:
+            print(f"No patient found with ID: {view_id}")
+            
+
+    def get_nurse_id(self):
+        return self.__nurse_id
+
+    def get_nurse_pw(self):
+        return self.__nurse_password
+
+
+# Nurse cont'd
+nurses = [
+    Nurse("Place", "Holder", "AdjustingIndexes", 0), #Placeholder to avoid "index minus one" instances
+    Nurse("Mikan", "Tsumiki", "evilteddybear", 1),
+    Nurse("Lisa", "Garland", "quietplease", 2),
+    Nurse("Sally", "Smithson", "daylightallergy", 1) #DOCTOR MODULER, this is the list you are working with to "create new nurse" as per the requirements
+]                                                    # The format is Nurse(first_name, last_name, password, floor_number) ; or just look at nurse init lol
+                                                     # 04/13/2026
+
+
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+def exit_HIS():
+    print("Thank you for visting the HIS!")
+
+def run_doctor():
+    while True:
+        
+        if input == 0:
+            break
+
+def run_nurse():  #Humberto worked on run_nurse module; will continue troubleshooting pathways - last worked on on 04/19/2026
+    
+    print("\nHello Nurse, please enter login details:")
+    username_attempt = input("Username: ") # Prompts for a username
+
+    logged_in_nurse = None
+
+
+    for nurse in nurses:
+        if username_attempt == nurse.get_nurse_id():
+            password_attempt = input(f"{nurse.full_name()}, please enter your password: ")
+            
+            if password_attempt == nurse.get_nurse_pw():
+                logged_in_nurse = nurse
+                break
+
+    if not logged_in_nurse:
+        print("Invalid Credentials.")
+        return
+                
+    while True:
+        print(f"Welcome {logged_in_nurse.full_name()}. What would you like to do today?")
+        user_input = input(f"(0) Exit HIS  |  (1) Create Patient  |  (2) View Patient")
+
+        if user_input == "0":
+            break
+        elif user_input == "1":
+            logged_in_nurse.create_patient() #4/19/2026 ; Humberto needs to work on this working
+
+        elif user_input == "2":
+            logged_in_nurse.view_patient() #4/19/2026 ; Humberto needs to work on this working
+
+        
+def main_module():
+    while True:
+        print("Hi! Welcome to the Health Information System! At any time, press 0 to exit the Health Information System")
+        selection = int(input(f"Please choose a selection: (1) Doctor | (2) Nurse | (3) Patient | (4) Discharge & Exit" ))
+        if selection == 0:
+            exit_HIS()
+            break
+        if selection == 1:
+            run_doctor()
+        if selection == 2:
+            run_nurse()
+        if selection == 3:
+            patient()
+        if selection == 4:
+            discharge_exit()
+            
+main_module()
