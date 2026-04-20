@@ -2,3 +2,6 @@ DOCUMENTATION
 
 Discharge Module
 - Create a log file containing patient info and remove a patient from the system by patient ID.
+Doctor Module:
+ allows doctor to log in and mange patients. use doctor and patient calasse to store informations, viiew patients datiels , order lab testes, and discahrge patients.
+In this module i used lists to store date and demonstaresd basic concepts like classes and functions. 
