@@ -66,13 +66,7 @@ class doctorDischarge:
     def __init__(self, p_list):
         self.patients = p_list
      
-    def pDischarge(self, role):
-        
-        # We still need a real way to discern this
-        # I'll use Rafa's role property for now
-        if role.strip().lower() != "doctor":
-            print("\nYou are not authorized to discharge patients.")
-            return
+    def pDischarge(self):
         
         try:
             pid = int(input("Enter patient ID to discharge: "))
@@ -121,15 +115,7 @@ def exitDischarge():
             choice = input("Enter choice: ")
     
             if choice == "1":
-                # ======================================================
-                # Make 100% sure role is defined somewhere in the code!!
-                # Again, role is a leftover from viewing Rafa's code!!
-                # ======================================================
-                
-                # Placeholder
-                role = "doctor"
-                
-                dDischarge.pDischarge(role)
+                dDischarge.pDischarge()
     
             elif choice == "2":
                 # ======================================================
@@ -140,4 +126,8 @@ def exitDischarge():
             else:
                 print("Invalid choice.")
 
-exitDischarge()
+
+# ==========================================================
+# Make ABSOLUTELY sure only Doctors can run exitDischarge()
+# ==========================================================
+
