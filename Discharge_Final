@@ -19,7 +19,7 @@ class Patient(Person):
         self.doctor = patient_doctor
         self.address = address
         self.lab_tests = []
-        self. allergies = []
+        self.allergies = []
         self.medications = []
         self.discharge_status = status
 
