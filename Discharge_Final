@@ -1,0 +1,143 @@
+from datetime import datetime
+
+
+# Mandatory Modules
+
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+class Patient(Person):
+    def __init__(self, first_name, last_name, patient_id, age, admit_date, 
+    med_costs, patient_doctor, address, lab_tests, allergies, medications, status):
+        super().__init__(first_name, last_name)
+        self.patient_id = patient_id
+        self.age = age
+        self.admit_date = admit_date
+        self.med_costs = med_costs
+        self.doctor = patient_doctor
+        self.address = address
+        self.lab_tests = []
+        self. allergies = []
+        self.medications = []
+        self.discharge_status = status
+
+patients = [
+    Patient("John", "Smith", 1, 65, "March 3", 5, "Cheif", "1600 Pennsylvania Ave NW", [], [], [], False),
+    Patient("Patrica", "Jones", 2, 73, "February 9", 1000000000, "Cheif", "300 West Anchient St", [], [], [], False),
+    Patient("Someone", "Something", 3, 10, "April 7", 30, "Cheif", "900 Water Way", [], [], [], False),
+    Patient("Zack", "Xylophone", 4, 45, "December 31", 990, "Cheif", "3409 W Apach Blvd", [], [], [], False)
+]
+
+
+
+
+# Pass back the data for discharging the patient.
+
+class Discharge:
+    def __init__(self, patient):
+        self.patient = patient
+        self.date = datetime.now()
+    
+    def p_sum(self):
+        d_format = self.date.strftime("%Y-%m-%d %H:%M:%S")
+        summary = (
+            f"Patient Record\n"
+            f"Patient Name: {self.patient.first_name} {self.patient.last_name}\n"
+            f"Patient ID: {self.patient.patient_id}\n"
+            f"Age: {self.patient.age}\n"
+            f"Admit Date: {self.patient.admit_date}\n"
+            f"Discharge Date: {d_format}\n"
+            f"Attending Doctor: {self.patient.doctor}\n"
+            f"Address: {self.patient.address}\n"
+            f"Medical Costs: ${self.patient.med_costs}\n"
+            f"Lab Tests: {', '.join(self.patient.lab_tests) if self.patient.lab_tests else 'None'}\n"
+            f"Allergies: {', '.join(self.patient.allergies) if self.patient.allergies else 'None'}\n"
+            f"Medications: {', '.join(self.patient.medications) if self.patient.medications else 'None'}\n"
+        )
+
+        return summary
+
+
+# Initiate the discharge through creating the file.
+
+class doctorDischarge:
+    def __init__(self, p_list):
+        self.patients = p_list
+     
+    def pDischarge(self, role):
+        
+        # We still need a real way to discern this
+        # I'll use Rafa's role property for now
+        if role.strip().lower() != "doctor":
+            print("\nYou are not authorized to discharge patients.")
+            return
+        
+        try:
+            pid = int(input("Enter patient ID to discharge: "))
+        except ValueError:
+            print("Invalid ID.")
+            return
+    
+        # Scan through patients find pid...
+        patient = None
+        for p in self.patients:
+            if p.patient_id == pid:
+                patient = p
+                break
+    
+        if patient is None:
+            print("\nNo patient was found.")
+            return
+    
+        # Create record
+        record = Discharge(patient)
+        summary = record.p_sum()
+        
+        # Create the file
+        date_str = datetime.now().strftime("%Y%m%d")
+        filename = f"{patient.first_name.lower()}{patient.last_name.lower()}_discharged_{date_str}.txt"
+
+        # Write to the file
+        with open(filename, "w") as file:
+            file.write(summary)
+
+        # Remove patient from system
+        self.patients.remove(patient)
+
+        print("\nPatient was discharged successfully!")
+        print(f"Discharge file created: {filename}")
+    
+
+def exitDischarge():
+        dDischarge = doctorDischarge(patients)
+        
+        while True:
+            print("\nDischarge & Exit Module")
+            print("1. Discharge Patient")
+            print("2. Return to Main Menu")
+    
+            choice = input("Enter choice: ")
+    
+            if choice == "1":
+                # ======================================================
+                # Make 100% sure role is defined somewhere in the code!!
+                # Again, role is a leftover from viewing Rafa's code!!
+                # ======================================================
+                
+                # Placeholder
+                role = "doctor"
+                
+                dDischarge.pDischarge(role)
+    
+            elif choice == "2":
+                # ======================================================
+                # Put main menu call code or whatever here!! (Important)
+                # ======================================================
+                break
+    
+            else:
+                print("Invalid choice.")
+
+exitDischarge()
