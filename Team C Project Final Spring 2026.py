@@ -364,13 +364,13 @@ class doctorDischarge:
         filename = f"{patient.first_name.lower()}{patient.last_name.lower()}_discharged_{date_str}.txt"
 
         # Write to the file
-        try:
-            with open(filename, "w") as file:
-            file.write(summary)
-        except Exception as e:
-            print("Error creating discharge file:", e)
-            input("Press Enter to continue...")
-            return
+        
+        with open(filename, "w") as file:
+        file.write(summary)
+        
+        print("Error creating discharge file:", e)
+        input("Press Enter to continue...")
+        return
             
         # Remove patient from system
         self.patients.remove(patient)
