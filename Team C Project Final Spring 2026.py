@@ -365,12 +365,12 @@ class doctorDischarge:
 
         # Write to the file
         
-        with open(filename, "w") as file:
-        file.write(summary)
-        
-        print("Error creating discharge file:", e)
-        input("Press Enter to continue...")
-        return
+        try:
+            with open(filename, "w") as file:
+                file.write(summary)
+        except Exception as e:
+            print("Error creating discharge file:", e)
+            return
             
         # Remove patient from system
         self.patients.remove(patient)
